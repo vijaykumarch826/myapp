@@ -1,9 +1,9 @@
 frontend:
-  image: "YOUR_AWS_ACCOUNT.dkr.ecr.YOUR_REGION.amazonaws.com/react-frontend"
+  image: "793523315685.dkr.ecr.us-east-1.amazonaws.com/react-frontend"
   tag: "latest"
 
 backend:
-  image: "YOUR_AWS_ACCOUNT.dkr.ecr.YOUR_REGION.amazonaws.com/node-backend"
+  image: "793523315685.dkr.ecr.us-east-1.amazonaws.com/node-backend"
   tag: "latest"
 
 ingressHost: "af4aaf21e584e47fc9dd53c7e196e201-440006428.us-east-1.elb.amazonaws.com"
