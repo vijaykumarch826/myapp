@@ -4,8 +4,8 @@ pipeline {
   environment {
     REGION = "us-east-1"
     ACCOUNT = "793523315685"
-    BACKEND_ECR = "${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com/node-backend"
-    FRONTEND_ECR = "${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com/react-frontend"
+    BACKEND_ECR = "${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com/backend"
+    FRONTEND_ECR = "${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com/frontend"
     TAG = "latest"
   }
 
@@ -22,7 +22,8 @@ pipeline {
       steps {
         echo "Logging into ECR..."
         sh """
-          aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $ACCOUNT.dkr.ecr.$REGION.amazonaws.com
+          aws ecr get-login-password --region $REGION | \
+          docker login --username AWS --password-stdin ${ACCOUNT}.dkr.ecr.$REGION.amazonaws.com
         """
       }
     }
@@ -53,7 +54,7 @@ pipeline {
 
     stage('Deploy to EKS') {
       steps {
-        echo "Deploying to EKS..."
+        echo "Deploying to EKS using Helm..."
         sh """
           helm upgrade --install myapp charts/app \
             --set backend.tag=$TAG \
